@@ -5,11 +5,13 @@ using UnityEngine;
 
 namespace JetpackMonke;
 
-[BepInPlugin("xyz.pl2w.jetpack", "JetpackMonke", "1.0.0")]
+[BepInPlugin(PluginInfo.Guid, PluginInfo.Name, PluginInfo.Version)]
 public class Plugin : BaseUnityPlugin
 {
     private ConfigEntry<ControllerInput> _jetpackInput;
     private ConfigEntry<float> _jetpackForce;
+
+    private bool _enabled = true;
 
     private void Awake()
     {
@@ -17,8 +19,14 @@ public class Plugin : BaseUnityPlugin
         _jetpackForce = Config.Bind("General", "Force", 20f, "Force of the jetpack");
     }
 
+    public void OnEnable() => _enabled = true;
+    public void OnDisable() => _enabled = false;
+
     private void FixedUpdate()
     {
+        if(!_enabled)
+            return;
+        
         if (!NetworkSystem.Instance.InRoom || !NetworkSystem.Instance.GameModeString.Contains("MODDED"))
             return;
 
@@ -40,6 +48,13 @@ public class Plugin : BaseUnityPlugin
         ControllerInput.LeftControllerGrip             => ControllerInputPoller.instance.leftGrab,
         _ => false
     };
+}
+
+public static class PluginInfo
+{
+    public const string Name = "JetpackMonke";
+    public const string Guid = "xyz.pl2w.jetpack";
+    public const string Version = "1.0.0";
 }
 
 public enum ControllerInput
