@@ -24,16 +24,11 @@ public class Plugin : BaseUnityPlugin
 
     private void FixedUpdate()
     {
-        if(!_enabled)
-            return;
-        
-        if (!NetworkSystem.Instance.InRoom || !NetworkSystem.Instance.GameModeString.Contains("MODDED"))
+        if (!_enabled || !NetworkSystem.Instance || !NetworkSystem.Instance.InRoom ||
+            !NetworkSystem.Instance.GameModeString.Contains("MODDED") || !IsInputPressed(_jetpackInput.Value))
             return;
 
-        if (!IsInputPressed(_jetpackInput.Value))
-            return;
-        
-        GTPlayer.Instance.AddForce(GTPlayer.Instance.transform.up * _jetpackForce.Value, ForceMode.Force);
+        GTPlayer.Instance.AddForce(GTPlayer.Instance.transform.up * _jetpackForce.Value, ForceMode.Acceleration);
     }
 
     private bool IsInputPressed(ControllerInput input) => input switch
