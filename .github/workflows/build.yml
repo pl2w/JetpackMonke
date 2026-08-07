@@ -12,6 +12,10 @@ on:
         description: 'Release version'
         type: string
         default: ''
+      prerelease:
+        description: 'Mark as a pre-release'
+        type: boolean
+        default: false
   push:
 
 concurrency:
@@ -69,5 +73,6 @@ jobs:
         with:
           tag_name: ${{ inputs.version }}
           name: ${{ inputs.version }}
+          prerelease: ${{ inputs.prerelease }}
           files: JetpackMonke/bin/Release/netstandard2.1/JetpackMonke.dll
           generate_release_notes: true
