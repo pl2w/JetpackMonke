@@ -16,6 +16,9 @@ Press the designated button to activate the jetpack.
 > **Default:** Right controller primary button
 > 
 ---
+
+## Dependencies
+This mod requires the use of any mod that allows for modded gamemodes.
       
 ## Configuration
 After the first launch, a config file is generated at `BepInEx/config/xyz.pl2w.jetpack.cfg`
