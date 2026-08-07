@@ -33,7 +33,7 @@ public class Plugin : BaseUnityPlugin
         if (!IsInputPressed(_jetpackInput.Value))
             return;
         
-        GTPlayer.Instance.AddForce(GTPlayer.Instance.transform.up * _jetpackForce.Value, ForceMode.Acceleration);
+        GTPlayer.Instance.AddForce(GTPlayer.Instance.transform.up * _jetpackForce.Value, ForceMode.Force);
     }
 
     private bool IsInputPressed(ControllerInput input) => input switch
